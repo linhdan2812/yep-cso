@@ -38,6 +38,7 @@ function searchImage() {
     function tryLoadImage() {
         if (currentPathIndex >= imagePaths.length) {
             // Không tìm thấy ảnh với bất kỳ đường dẫn nào
+            console.error('Không tìm thấy ảnh với tất cả các đường dẫn đã thử');
             errorName.textContent = name;
             inputSection.classList.add('hidden');
             resultSection.classList.add('hidden');
@@ -47,9 +48,11 @@ function searchImage() {
 
         const img = new Image();
         const imagePath = imagePaths[currentPathIndex];
+        console.log(`Đang thử đường dẫn [${currentPathIndex + 1}/${imagePaths.length}]:`, imagePath);
 
         img.onload = function() {
             // Ảnh tồn tại - hiển thị kết quả
+            console.log('✅ Thành công! Đường dẫn hoạt động:', imagePath);
             resultImage.src = imagePath;
             resultName.textContent = `Trân trọng và biết ơn ${name} đã có mặt tại đây`;
 
@@ -60,6 +63,7 @@ function searchImage() {
 
         img.onerror = function() {
             // Thử đường dẫn tiếp theo
+            console.warn('❌ Thất bại với đường dẫn:', imagePath);
             currentPathIndex++;
             tryLoadImage();
         };
