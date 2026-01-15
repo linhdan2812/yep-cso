@@ -27,7 +27,7 @@ function searchImage() {
     }
 
     // Tạo đường dẫn đến ảnh
-    const imagePath = `../images/${name}.png`;
+    const imagePath = `images/${name}.png`;
 
     // Kiểm tra ảnh có tồn tại không
     const img = new Image();
