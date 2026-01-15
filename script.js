@@ -13,6 +13,17 @@ const resultName = document.getElementById('resultName');
 const errorName = document.getElementById('errorName');
 const errorMessage = document.getElementById('errorMessage');
 
+// Danh sách tên file chuẩn (case-sensitive như tên file thật)
+const nameMapping = {
+    'akeo': 'Akeo',
+    'đức': 'Đức',
+    'duc': 'Đức',
+    'gun': 'Gun',
+    'lee': 'Lee',
+    'makoto': 'Makoto',
+    'yuri': 'Yuri'
+};
+
 // Hàm tìm kiếm ảnh
 function searchImage() {
     const name = nameInput.value.trim();
@@ -26,11 +37,19 @@ function searchImage() {
         return;
     }
 
-    // Thử nhiều cách để tạo đường dẫn ảnh
+    // Chuyển về chữ thường để so sánh
+    const nameLower = name.toLowerCase();
+
+    // Tìm tên chuẩn từ mapping
+    const standardName = nameMapping[nameLower] || name;
+
+    console.log(`Input: "${name}" -> Tên chuẩn: "${standardName}"`);
+
+    // Thử nhiều cách để tạo đường dẫn ảnh với tên chuẩn
     const imagePaths = [
-        `images/${name}.png`,                    // Thử đường dẫn trực tiếp
-        `images/${encodeURIComponent(name)}.png`, // Thử với encoding
-        `./images/${name}.png`                   // Thử với ./
+        `images/${standardName}.png`,                    // Thử đường dẫn trực tiếp với tên chuẩn
+        `images/${encodeURIComponent(standardName)}.png`, // Thử với encoding
+        `./images/${standardName}.png`                   // Thử với ./
     ];
 
     let currentPathIndex = 0;
@@ -54,7 +73,7 @@ function searchImage() {
             // Ảnh tồn tại - hiển thị kết quả
             console.log('✅ Thành công! Đường dẫn hoạt động:', imagePath);
             resultImage.src = imagePath;
-            resultName.textContent = `Trân trọng và biết ơn ${name} đã có mặt tại đây`;
+            resultName.textContent = `Trân trọng và biết ơn ${standardName} đã có mặt tại đây`;
 
             inputSection.classList.add('hidden');
             errorSection.classList.add('hidden');
