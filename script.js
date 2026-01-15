@@ -73,7 +73,7 @@ function searchImage() {
             // Ảnh tồn tại - hiển thị kết quả
             console.log('✅ Thành công! Đường dẫn hoạt động:', imagePath);
             resultImage.src = imagePath;
-            resultName.textContent = `Trân trọng và biết ơn ${standardName} đã có mặt tại đây`;
+            resultName.textContent = `Trân trọng và biết ơn ${standardName} vì có mặt tại đây`;
 
             inputSection.classList.add('hidden');
             errorSection.classList.add('hidden');
