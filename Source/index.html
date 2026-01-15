@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaldea Security Organization</title>
+    <link rel="icon" type="image/webp" href="https://cdn.discordapp.com/icons/625698870776692756/1b65205fe680417530ef25b02a7b2098.webp?size=64">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Form nhập tên -->
+        <div id="inputSection" class="section">
+            <h1>Nhập Tên Của Bạn</h1>
+            <div class="input-group">
+                <input type="text" id="nameInput" placeholder="Nhập tên của bạn..." />
+                <button id="searchBtn">Tìm Kiếm</button>
+            </div>
+            <p id="errorMessage" class="error-message hidden">Hãy nhập tên của bạn</p>
+            <p class="hint">Akeo, Đức, Gun, Lee, Makoto, Yuri</p>
+        </div>
+
+        <!-- Hiển thị kết quả -->
+        <div id="resultSection" class="section hidden">
+            <div class="result-content">
+                <img id="resultImage" src="" alt="Ảnh của bạn" />
+                <p id="resultName"></p>
+                <button id="backBtn">Tìm Kiếm Lại</button>
+            </div>
+        </div>
+
+        <!-- Thông báo lỗi -->
+        <div id="errorSection" class="section hidden">
+            <div class="error-content">
+                <div class="error-icon">❌</div>
+                <h2>Khách này không được mời</h2>
+                <p>Không tìm thấy ảnh với tên "<span id="errorName"></span>"</p>
+                <p class="error-hint">Vui lòng kiểm tra lại tên hoặc thử tên khác</p>
+                <button id="retryBtn">Thử Lại</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
