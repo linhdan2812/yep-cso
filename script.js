@@ -26,32 +26,48 @@ function searchImage() {
         return;
     }
 
-    // Tạo đường dẫn đến ảnh
-    const imagePath = `images/${name}.png`;
+    // Thử nhiều cách để tạo đường dẫn ảnh
+    const imagePaths = [
+        `images/${name}.png`,                    // Thử đường dẫn trực tiếp
+        `images/${encodeURIComponent(name)}.png`, // Thử với encoding
+        `./images/${name}.png`                   // Thử với ./
+    ];
 
-    // Kiểm tra ảnh có tồn tại không
-    const img = new Image();
+    let currentPathIndex = 0;
 
-    img.onload = function() {
-        // Ảnh tồn tại - hiển thị kết quả
-        resultImage.src = imagePath;
-        resultName.textContent = `Trân trọng và biết ơn ${name} đã có mặt tại đây`;
+    function tryLoadImage() {
+        if (currentPathIndex >= imagePaths.length) {
+            // Không tìm thấy ảnh với bất kỳ đường dẫn nào
+            errorName.textContent = name;
+            inputSection.classList.add('hidden');
+            resultSection.classList.add('hidden');
+            errorSection.classList.remove('hidden');
+            return;
+        }
 
-        inputSection.classList.add('hidden');
-        errorSection.classList.add('hidden');
-        resultSection.classList.remove('hidden');
-    };
+        const img = new Image();
+        const imagePath = imagePaths[currentPathIndex];
 
-    img.onerror = function() {
-        // Ảnh không tồn tại - hiển thị lỗi
-        errorName.textContent = name;
+        img.onload = function() {
+            // Ảnh tồn tại - hiển thị kết quả
+            resultImage.src = imagePath;
+            resultName.textContent = `Trân trọng và biết ơn ${name} đã có mặt tại đây`;
 
-        inputSection.classList.add('hidden');
-        resultSection.classList.add('hidden');
-        errorSection.classList.remove('hidden');
-    };
+            inputSection.classList.add('hidden');
+            errorSection.classList.add('hidden');
+            resultSection.classList.remove('hidden');
+        };
 
-    img.src = imagePath;
+        img.onerror = function() {
+            // Thử đường dẫn tiếp theo
+            currentPathIndex++;
+            tryLoadImage();
+        };
+
+        img.src = imagePath;
+    }
+
+    tryLoadImage();
 }
 
 // Hàm quay lại màn hình tìm kiếm
